@@ -36,6 +36,8 @@
 
 ### Instalasi
 
+- Instal composer terlebih dahulu melalui link berikut https://getcomposer.org/download/
+- Setelah itu, install git terlebih dahulu melalui link berikut https://git-scm.com/downloads 
 - Unduh dan impor kode proyek ini ke dalam direktori proyek anda (htdocs).
 - Penting ⚠️. Jika belum memiliki file `.env`, salin/rename file `.env.example` menjadi `.env`
 - (Opsional) Konfigurasi file `.env` untuk mengatur parameter seperti koneksi database dan pengaturan lainnya sesuai dengan lingkungan pengembangan Anda.
@@ -44,32 +46,24 @@
 ```shell
 composer install
 ```
+-Jika gagal ketikan:
+```shell
+composer install --ignore-platform-reqs
+```
 
-- Buat database `db_book_library` di phpMyAdmin / mysql
+- Buat database `db_cakrawalay` di phpMyAdmin / mysql
 - Penting ⚠️. Jalankan migrasi database untuk membuat struktur tabel yang diperlukan. Ketikkan perintah berikut di terminal:
 
 ```shell
 php spark migrate --all
 ```
+dan
 
-- Penting ⚠️. Karena belum memiliki akun admin, untuk mengakses halaman admin, anda memerlukan user/akun dengan level `superadmin`. Jalankan perintah berikut untuk membuat akun `superadmin`:
-
-```shell
-php spark db:seed SuperAdminSeeder
-```
-
-> [!TIP]
->
-> - (Opsional) Isi database dengan data dummy / seeder.
->
-> ```shell
+ ```shell
 > php spark db:seed Seeder # semua seeder
-> php spark db:seed BookSeeder # buku
-> php spark db:seed MemberSeeder # anggota
-> php spark db:seed LoanSeeder # peminjaman, pengembalian & denda
-> ```
+ ```
 
-- Jalankan website
+- Jalankan website dengan mengetik :
 
 ```shell
 php spark serve
