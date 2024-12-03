@@ -18,6 +18,10 @@
       <h5 class="card-title fw-semibold mb-3">Data Anggota</h5>
       <div class="row">
         <div class="col-12 col-md-6 mb-3">
+          <label for="member_name" class="form-label">Nik</label>
+          <input type="text" class="form-control" id="Nik" name="Nik" value="<?= $member['Nik']== 0 ? 'N/A' : $member['Nik']; ?>" disabled>
+        </div>
+        <div class="col-12 col-md-6 mb-3">
           <label for="member_name" class="form-label">Nama anggota</label>
           <input type="text" class="form-control" id="member_name" name="member_name" value="<?= "{$member['first_name']} {$member['last_name']}"; ?>" disabled>
         </div>

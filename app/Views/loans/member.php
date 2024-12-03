@@ -8,6 +8,7 @@
       <thead class="table-light">
         <tr>
           <th scope="col">#</th>
+          <th scope="col">Nik</th>
           <th scope="col">Nama lengkap</th>
           <th scope="col">Email</th>
           <th scope="col">Phone</th>
@@ -22,6 +23,7 @@
           <?php if (!$member['deleted_at']) : ?>
             <tr>
               <th scope="row"><?= $i++; ?></th>
+              <td><?= $member['Nik']== 0 ? 'N/A' : $member['Nik']; ?></td>
               <td>
                 <b><?= $member['first_name'] . ' ' . $member['last_name']; ?></b>
               </td>

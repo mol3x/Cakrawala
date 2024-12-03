@@ -33,6 +33,14 @@
           <div>
             <form action="" method="get">
               <div class="input-group mb-3">
+                
+                <select class="form-select" name="category" aria-label="Pilih Kategori">
+                  <option value="all" <?= (isset($category) && $category == 'all') ? 'selected' : ''; ?>>Semua</option>
+                  <option value="title" <?= (isset($category) && $category == 'title') ? 'selected' : ''; ?>>Judul</option>
+                  <option value="author" <?= (isset($category) && $category == 'author') ? 'selected' : ''; ?>>Penulis</option>
+                  <option value="publisher" <?= (isset($category) && $category == 'publisher') ? 'selected' : ''; ?>>Penerbit</option>
+                  <option value="year" <?= (isset($category) && $category == 'year') ? 'selected' : ''; ?>>Tahun Terbit</option>
+                </select>
                 <input type="text" class="form-control" name="search" value="<?= $search ?? ''; ?>" placeholder="Cari buku" aria-label="Cari buku" aria-describedby="searchButton">
                 <button class="btn btn-outline-secondary" type="submit" id="searchButton">Cari</button>
               </div>
@@ -56,7 +64,7 @@
             <th scope="col">Judul</th>
             <th scope="col">Kategori</th>
             <th scope="col">Rak</th>
-            <th scope="col">Jumlah</th>
+            <th scope="col">Sisa Stock</th>
             <th scope="col" class="text-center">Aksi</th>
           </tr>
         </thead>
@@ -82,13 +90,13 @@
               </td>
               <td>
                 <a href="<?= base_url("admin/books/{$book['slug']}"); ?>">
-                  <p class="text-primary-emphasis text-decoration-underline"><b><?= "{$book['title']} ({$book['year']})"; ?></b></p>
+                  <p class="text-primary-emphasis"><b><?= "{$book['title']} ({$book['year']})"; ?></b></p>
                   <p class="text-body"><?= "Author: {$book['author']}"; ?></p>
                 </a>
               </td>
               <td><?= $book['category']; ?></td>
               <td><?= $book['rack']; ?></td>
-              <td><?= $book['quantity']; ?></td>
+              <td><?= $book['bookStock'] ?></td>
               <td>
                 <a href="<?= base_url("admin/books/{$book['slug']}/edit"); ?>" class="d-block btn btn-primary w-100 mb-2">
                   <i class="ti ti-edit"></i>

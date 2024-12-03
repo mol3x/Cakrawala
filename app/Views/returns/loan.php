@@ -14,6 +14,7 @@ if (empty($loans)) : ?>
       <thead class="table-light">
         <tr>
           <th scope="col">#</th>
+          <th scope="col">Nik</th>
           <th scope="col">Nama lengkap</th>
           <th scope="col">Judul buku</th>
           <th scope="col" class="text-center">Jumlah</th>
@@ -43,6 +44,9 @@ if (empty($loans)) : ?>
           <?php if (!$loan['deleted_at']) : ?>
             <tr>
               <th scope="row"><?= $i++; ?></th>
+              <td>
+                <b><?= $loan['Nik']; ?></b>
+              </td>
               <td>
                 <b><?= $loan['first_name'] . ' ' . $loan['last_name']; ?></b>
               </td>

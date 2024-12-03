@@ -31,6 +31,10 @@ class CreateBooksTable extends Migration
                 'type'           => 'VARCHAR',
                 'constraint'     => 64
             ],
+            'panggil' => [
+                'type'           => 'VARCHAR',
+                'constraint'     => 15
+            ],
             'isbn' => [
                 'type'           => 'VARCHAR',
                 'constraint'     => 13

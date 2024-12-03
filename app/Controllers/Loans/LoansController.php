@@ -32,43 +32,56 @@ class LoansController extends ResourceController
      * @return mixed
      */
     public function index()
-    {
-        $itemPerPage = 20;
+            {
+                $itemPerPage = 20;
 
-        if ($this->request->getGet('search')) {
-            $keyword = $this->request->getGet('search');
-            $loans = $this->loanModel
-                ->select('members.*, members.uid as member_uid, books.*, loans.*')
-                ->join('members', 'loans.member_id = members.id', 'LEFT')
-                ->join('books', 'loans.book_id = books.id', 'LEFT')
-                ->like('first_name', $keyword, insensitiveSearch: true)
-                ->orLike('last_name', $keyword, insensitiveSearch: true)
-                ->orLike('email', $keyword, insensitiveSearch: true)
-                ->orLike('title', $keyword, insensitiveSearch: true)
-                ->orLike('slug', $keyword, insensitiveSearch: true)
-                ->paginate($itemPerPage, 'loans');
-        } else {
-            $loans = $this->loanModel
-                ->select('members.*, members.uid as member_uid, books.*, loans.*')
-                ->join('members', 'loans.member_id = members.id', 'LEFT')
-                ->join('books', 'loans.book_id = books.id', 'LEFT')
-                ->paginate($itemPerPage, 'loans');
-        }
+                // Ambil parameter search dan sort dari query string
+                $sortOrder = $this->request->getGet('sort') ?? 'latest';  // default ke 'latest' jika tidak ada parameter sort
+                $sortColumn = 'loans.loan_date';  // Tentukan kolom untuk sorting
 
-        $loans = array_filter($loans, function ($loan) {
-            return $loan['deleted_at'] == null && $loan['return_date'] == null;
-        });
+                // Tentukan urutan berdasarkan pilihan
+                $orderDirection = ($sortOrder === 'oldest') ? 'ASC' : 'DESC';  // Sortir berdasarkan 'oldest' atau 'latest'
 
-        $data = [
-            'loans'         => $loans,
-            'pager'         => $this->loanModel->pager,
-            'currentPage'   => $this->request->getVar('page_loans') ?? 1,
-            'itemPerPage'   => $itemPerPage,
-            'search'        => $this->request->getGet('search')
-        ];
+                if ($this->request->getGet('search')) {
+                    $keyword = $this->request->getGet('search');
+                    $loans = $this->loanModel
+                        ->select('members.*, members.uid as member_uid, members.Nik, books.*, loans.*')
+                        ->join('members', 'loans.member_id = members.id', 'LEFT')
+                        ->join('books', 'loans.book_id = books.id', 'LEFT')
+                        ->like('first_name', $keyword, insensitiveSearch: true)
+                        ->orLike('last_name', $keyword, insensitiveSearch: true)
+                        ->orLike('email', $keyword, insensitiveSearch: true)
+                        ->orLike('title', $keyword, insensitiveSearch: true)
+                        ->orLike('slug', $keyword, insensitiveSearch: true)
+                        ->orLike('Nik', $keyword, insensitiveSearch: true)
+                        ->orderBy($sortColumn, $orderDirection)  // Terapkan urutan berdasarkan parameter sort
+                        ->paginate($itemPerPage, 'loans');
+                } else {
+                    $loans = $this->loanModel
+                        ->select('members.*, members.uid as member_uid, members.nik, books.*, loans.*')
+                        ->join('members', 'loans.member_id = members.id', 'LEFT')
+                        ->join('books', 'loans.book_id = books.id', 'LEFT')
+                        ->orderBy($sortColumn, $orderDirection)  // Terapkan urutan berdasarkan parameter sort
+                        ->paginate($itemPerPage, 'loans');
+                }
 
-        return view('loans/index', $data);
-    }
+                // Filter keluar pinjaman yang sudah dikembalikan
+                $loans = array_filter($loans, function ($loan) {
+                    return $loan['deleted_at'] == null && $loan['return_date'] == null;
+                });
+
+                $data = [
+                    'loans'         => $loans,
+                    'pager'         => $this->loanModel->pager,
+                    'currentPage'   => $this->request->getVar('page_loans') ?? 1,
+                    'itemPerPage'   => $itemPerPage,
+                    'search'        => $this->request->getGet('search'),
+                    'sort'           => $sortOrder  // Kirimkan parameter sort ke view untuk memilih urutan
+                ];
+
+                return view('loans/index', $data);
+            }
+
 
     /**
      * Return the properties of a resource object
@@ -137,6 +150,7 @@ class LoansController extends ResourceController
                 ->like('first_name', $param, insensitiveSearch: true)
                 ->orLike('last_name', $param, insensitiveSearch: true)
                 ->orLike('email', $param, insensitiveSearch: true)
+                ->orLike('Nik', $param, insensitiveSearch: true)
                 ->orWhere('uid', $param)
                 ->findAll();
 
@@ -401,4 +415,82 @@ class LoansController extends ResourceController
         session()->setFlashdata(['msg' => 'Loan deleted successfully']);
         return redirect()->to('admin/loans');
     }
+    /**
+ * Update the loan duration
+ *
+ * @param string|null $uid
+ * @return mixed
+ */
+// Controller - LoansController.php
+
+// Menampilkan halaman untuk mengedit lama peminjaman
+public function edit($uid = null)
+{
+    // Ambil data pinjaman berdasarkan UID
+    $loan = $this->loanModel->where('uid', $uid)->first();
+
+    if (empty($loan)) {
+        throw new PageNotFoundException('Loan not found');
+    }
+
+    // Tampilkan form untuk mengedit durasi peminjaman
+    $data = [
+        'loan' => $loan,
+        'validation' => \Config\Services::validation(),
+    ];
+
+    return view('loans/edit', $data);
+}
+
+// Proses pembaruan lama peminjaman
+public function update($uid = null)
+    {
+        // Validasi input durasi
+        $validation = [
+            'duration' => 'required|numeric|greater_than[0]|less_than_equal_to[30]',
+        ];
+
+        if (!$this->validate($validation)) {
+            return redirect()->back()->withInput();
+        }
+
+        // Ambil data pinjaman berdasarkan UID
+        $loan = $this->loanModel->where('uid', $uid)->first();
+
+        if (empty($loan)) {
+            throw new PageNotFoundException('Loan not found');
+        }
+
+        $duration = $this->request->getVar('duration');
+
+        // Update durasi pinjaman
+        $this->loanModel->update($loan['id'], [
+            'due_date' => Time::now()->addDays(intval($duration))->toDateTimeString(),
+        ]);
+
+        session()->setFlashdata(['msg' => 'Loan duration updated successfully']);
+        return redirect()->to('admin/loans');
+    }
+
+    public function print($uid)
+{
+    // Get loan data by UID
+    $loan = $this->loanModel->select('members.*, books.*, loans.*, loans.qr_code as loan_qr_code, book_stock.quantity as book_stock, racks.name as rack, categories.name as category')
+        ->join('members', 'loans.member_id = members.id', 'LEFT')
+        ->join('books', 'loans.book_id = books.id', 'LEFT')
+        ->join('book_stock', 'books.id = book_stock.book_id', 'LEFT')
+        ->join('racks', 'books.rack_id = racks.id', 'LEFT')
+        ->join('categories', 'books.category_id = categories.id', 'LEFT')
+        ->where('loans.uid', $uid)
+        ->first();
+
+    if (empty($loan)) {
+        throw new PageNotFoundException('Loan not found');
+    }
+
+    // Pass the loan data to the print view
+    return view('loans/print', ['loan' => $loan]);
+}
+
+
 }

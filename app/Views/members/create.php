@@ -22,8 +22,18 @@
 <div class="card">
   <div class="card-body">
     <h5 class="card-title fw-semibold">Form Anggota Baru</h5>
-    <form action="<?= base_url('admin/members'); ?>" method="post">
+    <form action="<?= base_url('admin/members'); ?>" method="post" enctype="multipart/form-data">
       <?= csrf_field(); ?>
+      <div class="row">
+        <div class="col-12 col-md-6 mb-3">
+          <label for="Nik" class="form-label">Nik</label>
+          <input type="text" class="form-control <?php if ($validation->hasError('Nik')) : ?>is-invalid<?php endif ?>" id="Nik" name="Nik" value="<?= $oldInput['Nik'] ?? ''; ?>" placeholder="321608......" required>
+          <div class="invalid-feedback">
+            <?= $validation->getError('Nik'); ?>
+          </div>
+        </div>
+       
+      </div>
       <div class="row mt-3">
         <div class="col-12 col-md-6 mb-3">
           <label for="first_name" class="form-label">Nama depan</label>
@@ -90,10 +100,19 @@
           <div class="invalid-feedback">
             <?= $validation->getError('gender'); ?>
           </div>
+          <div>
+         <div class="mb-3">
+          <label for="foto" class="form-label">Foto Anggota</label>
+          <input type="file" class="form-control" id="foto" name="foto">
+        </div>
+    </div>
+    </div>
         </div>
       </div>
       <button type="submit" class="btn btn-primary mt-2">Simpan</button>
     </form>
   </div>
 </div>
+
+
 <?= $this->endSection() ?>

@@ -18,6 +18,7 @@ class BookModel extends Model
         'title',
         'author',
         'publisher',
+        'panggil',
         'isbn',
         'year',
         'rack_id',

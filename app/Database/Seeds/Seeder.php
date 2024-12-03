@@ -20,12 +20,7 @@ class Seeder extends DatabaseSeeder
         }
 
         // run category, rack, book & bookstock seeder
-        $this->call('BookSeeder');
+        $this->call('SettingSeeder');
 
-        // run member seeder
-        $this->call('MemberSeeder');
-
-        // run loan & fine seeder
-        $this->call('LoanSeeder');
     }
 }

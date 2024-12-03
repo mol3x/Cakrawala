@@ -46,6 +46,10 @@ $daysLate = $now->today()->difference($loanDueDate)->getDays();
         <div class="col-12 col-md-6 mb-3">
           <div class="row">
             <div class="col-12 mb-3">
+              <label for="Nik" class="form-label">Nik</label>
+              <input type="text" class="form-control" id="Nik" name="Nik" value="<?= "{$loan['Nik']}"; ?>" disabled>
+            </div>
+            <div class="col-12 mb-3">
               <label for="member_name" class="form-label">Nama peminjam</label>
               <input type="text" class="form-control" id="member_name" name="member_name" value="<?= "{$loan['first_name']} {$loan['last_name']}"; ?>" disabled>
             </div>

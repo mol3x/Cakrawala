@@ -19,6 +19,14 @@ class CreateMembersTable extends Migration
                 'type'          => 'VARCHAR',
                 'constraint'    => 255,
             ],
+            'foto' => [
+                'type'          => 'VARCHAR',
+                'constraint'    => 500,
+            ],
+            'Nik' => [
+                'type'          => 'BIGINT',
+                'constraint'    => 255,
+            ],
             'first_name' => [
                 'type'          => 'VARCHAR',
                 'constraint'    => 100,

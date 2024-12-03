@@ -62,6 +62,13 @@
               <?= $validation->getError('publisher'); ?>
             </div>
           </div>
+          <div class="mb-3">
+            <label for="panggil" class="form-label">No Panggil</label>
+            <input type="text" class="form-control <?php if ($validation->hasError('panggil')) : ?>is-invalid<?php endif ?>" id="panggil" name="panggil" value="<?= $oldInput['panggil'] ?? ''; ?>" required>
+            <div class="invalid-feedback">
+              <?= $validation->getError('panggil'); ?>
+            </div>
+          </div>
         </div>
       </div>
       <div class="row">

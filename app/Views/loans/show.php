@@ -38,12 +38,16 @@ if (session()->getFlashdata('msg')) : ?>
   <div class="card-body">
     <div class="d-flex justify-content-between mb-4">
       <div>
-        <a href="<?= base_url('admin/loans'); ?>" class="btn btn-outline-primary">
+        <a href="<?= base_url('/admin/loans'); ?>" class="btn btn-outline-primary">
           <i class="ti ti-arrow-left"></i>
           Kembali
         </a>
       </div>
       <div class="d-flex gap-2 justify-content-end gap-2">
+        <a href="<?= site_url('admin/loans/print/'.$loan['uid']) ?>" class="btn btn-secondary mb-2">
+      <i class="ti ti-printer"></i>
+      Print
+    </a>
         <form action="<?= base_url("admin/loans/{$loan['uid']}"); ?>" method="post">
           <?= csrf_field(); ?>
           <input type="hidden" name="_method" value="DELETE">
@@ -64,6 +68,7 @@ if (session()->getFlashdata('msg')) : ?>
     <?php
     $memberData = [
       'Nama Lengkap'  => [$loan['first_name'] . ' ' . $loan['last_name']],
+      'Nik'         => $loan['Nik']== 0 ? 'N/A' : $loan['Nik'],
       'Email'         => $loan['email'],
       'Nomor telepon' => $loan['phone'],
       'Alamat'        => $loan['address'],

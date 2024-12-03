@@ -35,6 +35,15 @@ class FinesController extends ResourceController
     public function index()
     {
         $itemPerPage = 20;
+        
+                // Ambil parameter search dan sort dari query string
+                $sortOrder = $this->request->getGet('sort') ?? 'latest';  // default ke 'latest' jika tidak ada parameter sort
+                $sortColumn = 'loans.return_date';  // Tentukan kolom untuk sorting
+
+                // Tentukan urutan berdasarkan pilihan
+                $orderDirection = ($sortOrder === 'oldest') ? 'ASC' : 'DESC';  // Sortir berdasarkan 'oldest' atau 'latest'
+
+                
 
         if ($this->request->getGet('search')) {
             $keyword = $this->request->getGet('search');
@@ -48,6 +57,7 @@ class FinesController extends ResourceController
                 ->orLike('email', $keyword, insensitiveSearch: true)
                 ->orLike('title', $keyword, insensitiveSearch: true)
                 ->orLike('slug', $keyword, insensitiveSearch: true)
+                ->orderBy($sortColumn, $orderDirection)  // Terapkan urutan berdasarkan parameter sort
                 ->paginate($itemPerPage, 'fines');
         } else {
             $fines = $this->loanModel
@@ -55,6 +65,7 @@ class FinesController extends ResourceController
                 ->join('members', 'loans.member_id = members.id', 'LEFT')
                 ->join('books', 'loans.book_id = books.id', 'LEFT')
                 ->join('fines', 'fines.loan_id = loans.id', 'INNER')
+                ->orderBy($sortColumn, $orderDirection)  // Terapkan urutan berdasarkan parameter sort
                 ->paginate($itemPerPage, 'fines');
         }
 
@@ -80,7 +91,8 @@ class FinesController extends ResourceController
             'pager'         => $this->loanModel->pager,
             'currentPage'   => $this->request->getVar('page_fines') ?? 1,
             'itemPerPage'   => $itemPerPage,
-            'search'        => $this->request->getGet('search')
+            'search'        => $this->request->getGet('search'),
+            'sort'          => $sortOrder  // Kirimkan parameter sort ke view untuk memilih urutan
         ];
 
         return view('fines/index', $data);

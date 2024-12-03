@@ -38,6 +38,14 @@ class ReturnsController extends ResourceController
     {
         $itemPerPage = 20;
 
+                        // Ambil parameter search dan sort dari query string
+                $sortOrder = $this->request->getGet('sort') ?? 'latest';  // default ke 'latest' jika tidak ada parameter sort
+                $sortColumn = 'loans.return_date';  // Tentukan kolom untuk sorting
+
+                // Tentukan urutan berdasarkan pilihan
+                $orderDirection = ($sortOrder === 'oldest') ? 'ASC' : 'DESC';  // Sortir berdasarkan 'oldest' atau 'latest'
+
+        
         if ($this->request->getGet('search')) {
             $keyword = $this->request->getGet('search');
             $loans = $this->loanModel
@@ -50,6 +58,8 @@ class ReturnsController extends ResourceController
                 ->orLike('email', $keyword, insensitiveSearch: true)
                 ->orLike('title', $keyword, insensitiveSearch: true)
                 ->orLike('slug', $keyword, insensitiveSearch: true)
+                ->orLike('Nik', $keyword, insensitiveSearch: true)
+                ->orderBy($sortColumn, $orderDirection)
                 ->paginate($itemPerPage, 'returns');
         } else {
             $loans = $this->loanModel
@@ -57,6 +67,7 @@ class ReturnsController extends ResourceController
                 ->join('members', 'loans.member_id = members.id', 'LEFT')
                 ->join('books', 'loans.book_id = books.id', 'LEFT')
                 ->join('fines', 'fines.loan_id = loans.id', 'LEFT')
+                ->orderBy($sortColumn, $orderDirection)
                 ->paginate($itemPerPage, 'returns');
         }
 
@@ -69,6 +80,7 @@ class ReturnsController extends ResourceController
             'pager'         => $this->loanModel->pager,
             'currentPage'   => $this->request->getVar('page_returns') ?? 1,
             'itemPerPage'   => $itemPerPage,
+            'sort'           => $sortOrder 
         ];
 
         return view('returns/index', $data);
@@ -149,6 +161,7 @@ class ReturnsController extends ResourceController
                 ->orLike('title', $param, insensitiveSearch: true)
                 ->orLike('author', $param, insensitiveSearch: true)
                 ->orLike('publisher', $param, insensitiveSearch: true)
+                ->orLike('Nik', $param, insensitiveSearch: true)
                 ->orWhere('loans.uid', $param)
                 ->orWhere('members.uid', $param)
                 ->findAll();
@@ -333,4 +346,39 @@ class ReturnsController extends ResourceController
         session()->setFlashdata(['msg' => 'Success', 'error' => false]);
         return redirect()->to('admin/returns');
     }
+    public function print($uid = null)
+{
+    // Ambil data pinjaman berdasarkan UID
+    $loan = $this->loanModel
+         ->select('members.*, members.uid as member_uid, books.*, fines.*, fines.id as fine_id, loans.*, loans.qr_code as loan_qr_code, book_stock.quantity as book_stock, racks.name as rack, categories.name as category')
+            ->join('members', 'loans.member_id = members.id', 'LEFT')
+            ->join('books', 'loans.book_id = books.id', 'LEFT')
+            ->join('book_stock', 'books.id = book_stock.book_id', 'LEFT')
+            ->join('racks', 'books.rack_id = racks.id', 'LEFT')
+            ->join('categories', 'books.category_id = categories.id', 'LEFT')
+            ->join('fines', 'fines.loan_id = loans.id', 'LEFT')
+            ->where('loans.uid', $uid)
+            ->where("return_date IS NOT NULL")
+            ->first();
+
+    // Jika data pinjaman tidak ditemukan
+    if (empty($loan)) {
+        throw new PageNotFoundException('Loan not found');
+    }
+
+    // Calculate if the fine is paid or if it's fined
+    $isFinePaid = !empty($loan['fine_paid_date']);
+    $isFined = !empty($loan['fine_amount']) && !$isFinePaid;
+
+    // Pass the loan data and fine status to the print view
+    $data = [
+        'loan' => $loan,
+        'isFinePaid' => $isFinePaid,
+        'isFined' => $isFined,
+    ];
+
+    // Mengembalikan view yang akan dicetak
+    return view('returns/print', $data);
+}
+
 }

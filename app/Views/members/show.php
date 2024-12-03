@@ -14,7 +14,16 @@
     max-width: 500px;
     height: 300px;
   }
+
+  .member-photo {
+    display: block;
+    margin: 20px auto 0;
+    max-width: 200px;
+    width: 100%;
+    border-radius: 10px;
+  }
 </style>
+
 <?php
 
 use CodeIgniter\I18n\Time;
@@ -27,6 +36,7 @@ if (session()->getFlashdata('msg')) : ?>
     </div>
   </div>
 <?php endif; ?>
+
 <div class="row">
   <div class="col-12 col-lg-7">
     <div class="row">
@@ -35,7 +45,7 @@ if (session()->getFlashdata('msg')) : ?>
           <div class="card-body">
             <div class="d-flex justify-content-between mb-4">
               <div>
-                <a href="<?= base_url('admin/members'); ?>" class="btn btn-outline-primary">
+                <a href="javascript:history.back()" class="btn btn-outline-primary">
                   <i class="ti ti-arrow-left"></i>
                   Kembali
                 </a>
@@ -64,6 +74,7 @@ if (session()->getFlashdata('msg')) : ?>
                   <div class="w-100 mb-4">
                     <?php
                     $tableData = [
+                      'Nik'           => $member['Nik'] == 0 ? 'N/A' : $member['Nik'],
                       'Nama Lengkap'  => [$member['first_name'] . ' ' . $member['last_name']],
                       'Email'         => $member['email'],
                       'Nomor telepon' => $member['phone'],
@@ -197,8 +208,10 @@ if (session()->getFlashdata('msg')) : ?>
       <div class="card-body">
         <p class="text-center mb-4" style="line-break: anywhere;">UID : <?= $member['uid']; ?></p>
         <div id="qr-code" class="m-auto"></div>
+        <img width="90px" class="member-photo" src="<?= base_url('uploads/members/' . $member['foto']) ?>" alt="Foto Anggota" />
       </div>
     </div>
   </div>
 </div>
+
 <?= $this->endSection() ?>

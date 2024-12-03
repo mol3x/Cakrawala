@@ -32,6 +32,7 @@ if (session()->getFlashdata('msg')) : ?>
         <thead class="table-light">
           <tr>
             <th scope="col">#</th>
+            <th scope="col">Nik</th>
             <th scope="col">Nama peminjam</th>
             <th scope="col">Judul buku</th>
             <th scope="col" class="text-center">Jumlah</th>
@@ -46,8 +47,9 @@ if (session()->getFlashdata('msg')) : ?>
           foreach ($newLoans as $loan) : ?>
             <tr>
               <th scope="row"><?= $i++; ?></th>
+              <td class="text-center"><b><?= $loan['Nik']== 0 ? 'N/A' : $loan['Nik']; ?></b></td>
               <td>
-                <a href="<?= base_url("admin/members/{$loan['member_uid']}"); ?>" class="text-primary-emphasis text-decoration-underline">
+                <a href="<?= base_url("admin/members/{$loan['member_uid']}"); ?>" class="text-primary-emphasis">
                   <p>
                     <b><?= "{$loan['first_name']} {$loan['last_name']}"; ?></b>
                   </p>
@@ -55,7 +57,7 @@ if (session()->getFlashdata('msg')) : ?>
               </td>
               <td>
                 <a href="<?= base_url("admin/books/{$loan['slug']}"); ?>">
-                  <p class="text-primary-emphasis text-decoration-underline"><b><?= "{$loan['title']} ({$loan['year']})"; ?></b></p>
+                  <p class="text-primary-emphasis"><b><?= "{$loan['title']} ({$loan['year']})"; ?></b></p>
                   <p class="text-body"><?= "Author: {$loan['author']}"; ?></p>
                 </a>
               </td>

@@ -36,14 +36,25 @@
               Tambah Anggota
             </a>
           </div>
+          <div>
+            <a href="<?= base_url('admin/members/printmassal'); ?>" class="btn btn-primary py-2">
+              <i class="ti ti-plus"></i>
+              Print Selected
+            </a>
+          </div>
         </div>
       </div>
     </div>
     <div class="overflow-x-scroll">
+    <div>
+        <a href="<?= site_url('admin/members?sort=latest') ?>" <?= $sort === 'latest' ? 'style="font-weight: bold;"' : '' ?>>Latest</a> |
+        <a href="<?= site_url('admin/members?sort=oldest') ?>" <?= $sort === 'oldest' ? 'style="font-weight: bold;"' : '' ?>>Oldest</a>
+      </div>
       <table class="table table-hover table-striped">
         <thead class="table-light">
           <tr>
             <th scope="col">#</th>
+            <th scope="col">Nik</th>
             <th scope="col">Nama lengkap</th>
             <th scope="col">Email</th>
             <th scope="col">Phone</th>
@@ -62,8 +73,13 @@
           <?php foreach ($members as $key => $member) : ?>
             <tr>
               <th scope="row"><?= $i++; ?></th>
+              <td> 
+                <a href="<?= base_url("admin/members/{$member['uid']}"); ?>" class="text-primary-emphasis ">
+                <?= $member['Nik']== 0 ? 'N/A' : $member['Nik']; ?></td></a>
+              
+              
               <td>
-                <a href="<?= base_url("admin/members/{$member['uid']}"); ?>" class="text-primary-emphasis text-decoration-underline">
+                <a href="<?= base_url("admin/members/{$member['uid']}"); ?>" class="text-primary-emphasis ">
                   <b><?= $member['first_name'] . ' ' . $member['last_name']; ?></b>
                 </a>
               </td>
@@ -75,6 +91,9 @@
                 <div class="d-flex justify-content-center gap-2">
                   <a href="<?= base_url("admin/members/{$member['uid']}/edit"); ?>" class="btn btn-primary mb-2">
                     Edit
+                  </a>
+                   <a href="<?= base_url("admin/members/print/{$member['uid']}"); ?>" class="btn btn-info mb-2">
+                    Print
                   </a>
                   <form action="<?= base_url("admin/members/{$member['uid']}"); ?>" method="post">
                     <?= csrf_field(); ?>

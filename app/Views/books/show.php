@@ -27,6 +27,7 @@ $coverImageFilePath = BOOK_COVER_URI . $book['book_cover'];
     </div>
   </div>
 <?php endif; ?>
+
 <div class="card">
   <div class="card-body">
     <div class="d-flex justify-content-between mb-4">
@@ -58,8 +59,7 @@ $coverImageFilePath = BOOK_COVER_URI . $book['book_cover'];
     <h5 class="card-title fw-semibold mb-4">Detail Buku</h5>
     <div class="row">
       <div class="col-12 col-lg-4">
-        <div id="book-cover" class="mb-4 bg-light">
-        </div>
+        <div id="book-cover" class="mb-4 bg-light"></div>
       </div>
       <div class="col-12 col-lg-8 d-flex flex-wrap">
         <div class="w-100 mb-2">
@@ -69,11 +69,13 @@ $coverImageFilePath = BOOK_COVER_URI . $book['book_cover'];
           <h5>Penerbit: <?= $book['publisher']; ?></h5>
           <h5>Kategori: <?= $book['category']; ?></h5>
           <h5>Rak: <?= $book['rack']; ?>, Lantai <?= $book['floor']; ?></h5>
+          <h5>No Panggil: <?= $book['panggil']; ?></h5>
         </div>
       </div>
     </div>
   </div>
 </div>
+
 <div class="row">
   <div class="col-lg-4">
     <div class="card">
@@ -112,4 +114,5 @@ $coverImageFilePath = BOOK_COVER_URI . $book['book_cover'];
     </div>
   </div>
 </div>
+
 <?= $this->endSection() ?>

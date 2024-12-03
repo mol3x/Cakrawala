@@ -42,7 +42,7 @@
             <tr>
               <th scope="row"><?= $i++; ?></th>
               <td>
-                <a href="<?= base_url("admin/racks/{$rack['id']}"); ?>" class="text-primary-emphasis text-decoration-underline">
+                <a href="<?= base_url("admin/racks/{$rack['id']}"); ?>" class="text-primary-emphasis">
                   <b><?= $rack['name']; ?></b>
                 </a>
               </td>

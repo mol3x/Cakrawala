@@ -67,6 +67,10 @@ if (session()->getFlashdata('msg')) : ?>
       </div>
     </div>
     <div class="overflow-x-scroll">
+      <div>
+        <a href="<?= site_url('admin/fines?sort=latest') ?>" <?= $sort === 'latest' ? 'style="font-weight: bold;"' : '' ?>>Latest</a> |
+        <a href="<?= site_url('admin/fines?sort=oldest') ?>" <?= $sort === 'oldest' ? 'style="font-weight: bold;"' : '' ?>>Oldest</a>
+      </div>
       <table class="table table-hover table-striped">
         <thead class="table-light">
           <tr>
@@ -98,7 +102,7 @@ if (session()->getFlashdata('msg')) : ?>
             <tr>
               <th scope="row"><?= $i++; ?></th>
               <td>
-                <a href="<?= base_url("admin/members/{$fine['member_uid']}"); ?>" class="text-decoration-underline">
+                <a href="<?= base_url("admin/members/{$fine['member_uid']}"); ?>" class="text-primary-emphasis">
                   <p>
                     <b><?= "{$fine['first_name']} {$fine['last_name']}"; ?></b>
                   </p>

@@ -33,6 +33,23 @@ $routes->set404Override();
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
 $routes->get('/book', 'Home::book');
+$routes->get('/book/(:any)', 'Home::bookDetail/$1');
+$routes->get('/news', 'Home::news');
+$routes->get('/visiMisi', 'Home::visiMisi');
+$routes->get('/sejarah', 'Home::sejarah');
+$routes->get('/peraturandankebijakan', 'Home::peraturandankebijakan');
+$routes->get('/aboutus', 'Home::aboutus');
+$routes->get('/struktur', 'Home::struktur');
+
+// Rute untuk printCard dengan filter autentikasi
+$routes->get('admin/members/print/(:any)', 'Members\MembersController::printCard/$1', ['filter' => 'session']);
+$routes->post('admin/members/printSelectedCards', 'Members\MembersController::printSelectedCards');
+$routes->get('admin/members/printmassal', 'Members\MembersController::printmassal');
+
+$routes->get('admin/loans/print/(:segment)', 'Loans\LoansController::print/$1');
+$routes->get('admin/returns/print/(:segment)', 'Loans\ReturnsController::print/$1');
+
+
 
 service('auth')->routes($routes);
 
@@ -41,6 +58,7 @@ $routes->group('admin', ['filter' => 'session'], static function (RouteCollectio
     $routes->get('dashboard', 'Dashboard\DashboardController::dashboard');
 
     $routes->resource('members', ['controller' => 'Members\MembersController']);
+    
     $routes->resource('books', ['controller' => 'Books\BooksController']);
     $routes->resource('categories', ['controller' => 'Books\CategoriesController']);
     $routes->resource('racks', ['controller' => 'Books\RacksController']);
@@ -57,6 +75,11 @@ $routes->group('admin', ['filter' => 'session'], static function (RouteCollectio
     $routes->get('fines/pay/(:any)', 'Loans\FinesController::pay/$1');
     $routes->resource('fines/settings', ['controller' => 'Loans\FineSettingsController', 'filter' => 'group:superadmin']);
     $routes->resource('fines', ['controller' => 'Loans\FinesController']);
+
+    
+    $routes->get('setting/', 'SettingController::index');
+    $routes->get('setting/edit/(:segment)', 'SettingController::edit/$1');
+    $routes->post('setting/update/(:segment)', 'SettingController::update/$1');
 
     $routes->group('users', ['filter' => 'group:superadmin'], static function (RouteCollection $routes) {
         $routes->get('new', 'Users\RegisterController::index');

@@ -15,6 +15,8 @@ class MemberModel extends Model
     protected $protectFields    = true;
     protected $allowedFields    = [
         'uid',
+        'Nik',
+        'foto',
         'first_name',
         'last_name',
         'email',
