@@ -1,96 +1,148 @@
-# BukuHub - Sistem Perpustakaan QR Code
+Tentu, berikut adalah versi yang lebih terstruktur dan menarik dari README yang bisa meningkatkan daya tarik dan kejelasan:
 
-[![Continuous Integration](https://github.com/ikhsan3adi/sistem-perpustakaan-qr-code/actions/workflows/ci.yml/badge.svg)](https://github.com/ikhsan3adi/sistem-perpustakaan-qr-code/actions/workflows/ci.yml)
+---
+
+# BukuHub - Sistem Perpustakaan QR Code 📚 QR Code Library System
+
+[![Continuous Integration](https://github.com/ikhsan3adi/sistem-perpustakaan-qr-code/actions/workflows/ci.yml/badge.svg)](https://github.com/ikhsan3adi/sistem-perpustakaan-qr-code/actions/workflows/ci.yml)  
+*Dikembangkan oleh [Aji Ngamarta Ramadhan](https://github.com/mol3x/Cakrawala)*
 
 ![Preview](https://github.com/ikhsan3adi/sistem-perpustakaan-qr-code/raw/main/screenshots/home.png)
 
-> [!NOTE]
->
-> ## Fitur
->
-> - Login, Register & Magic login link (via Email)
-> - Dashboard admin
-> - QR Code anggota
-> - QR Code peminjaman
-> - Sistem denda
-> - Dan lainnya.
->
-> ## Framework dan Library Yang Digunakan
->
-> - [CodeIgniter 4](https://codeigniter.com/)
-> - [CodeIgniter Shield](https://codeigniter4.github.io/shield/)
-> - [Bootstrap 5](https://getbootstrap.com/)
-> - [Modernize Free Bootstrap 5 Admin Template](https://adminmart.com/product/modernize-free-bootstrap-5-admin-template/)
-> - [Tabler Icons](https://tabler-icons.io/)
-> - [Apex Charts](https://apexcharts.com/)
-> - [Endroid QR Code Generator](https://github.com/endroid/qr-code)
-> - [Mebjas Html5-QRCode Scanner](https://github.com/mebjas/html5-qrcode)
+## 📜 Deskripsi Proyek
 
-## Cara Penggunaan
+BukuHub adalah aplikasi web berbasis QR Code yang mengelola perpustakaan dengan berbagai fitur canggih, mulai dari manajemen anggota, peminjaman buku, hingga pengaturan denda. Sistem ini memungkinkan pengelola untuk mempermudah pengelolaan koleksi dan transaksi perpustakaan, serta memberikan kemudahan bagi anggota untuk meminjam buku dengan cepat menggunakan QR Code.
 
-### Persyaratan
+---
 
-- [Composer](https://getcomposer.org/).
-- PHP 8.1+ dan MySQL atau [XAMPP](https://www.apachefriends.org/download.html) versi 8.1+ dengan mengaktifkan extension `-intl` dan `-gd`.
-- (Opsional) Kamera/webcam untuk menjalankan qr scanner. Bisa juga menggunakan kamera HP dengan bantuan software DroidCam.
+## 🚀 Fitur Utama
 
-### Instalasi
+- **Login & Registrasi**  
+  Masuk dengan akun atau link login magic via email.
+  
+- **Dashboard Admin**  
+  Kelola buku, anggota, dan transaksi peminjaman dengan mudah.
 
-- Instal composer terlebih dahulu melalui link berikut https://getcomposer.org/download/
-- Setelah itu, install git terlebih dahulu melalui link berikut https://git-scm.com/downloads 
-- Unduh dan impor kode proyek ini ke dalam direktori proyek anda (htdocs).
-- Penting ⚠️. Jika belum memiliki file `.env`, salin/rename file `.env.example` menjadi `.env`
-- (Opsional) Konfigurasi file `.env` untuk mengatur parameter seperti koneksi database dan pengaturan lainnya sesuai dengan lingkungan pengembangan Anda.
-- Penting ⚠️. Install dependencies yang diperlukan dengan cara menjalankan perintah berikut di terminal:
+- **QR Code Anggota & Peminjaman**  
+  Setiap anggota memiliki QR Code untuk mempermudah proses peminjaman buku.
 
-```shell
-composer install
-```
--Jika gagal ketikan:
-```shell
-composer install --ignore-platform-reqs
-```
+- **Sistem Denda**  
+  Perhitungan denda otomatis jika peminjaman melebihi batas waktu.
 
-- Buat database `db_cakrawalay` di phpMyAdmin / mysql
-- Penting ⚠️. Jalankan migrasi database untuk membuat struktur tabel yang diperlukan. Ketikkan perintah berikut di terminal:
+- **Pencetakan Kartu Anggota & Struk Peminjaman**  
+  Dapatkan kartu anggota dan struk peminjaman/pengembalian buku yang siap dicetak.
 
-```shell
-php spark migrate --all
-```
-dan
+- **Customisasi Nama, Logo, dan Lokasi Perpustakaan**  
+  Mengubah nama perpustakaan, logo, dan lokasi dengan mudah.
 
- ```shell
-> php spark db:seed Seeder # semua seeder
- ```
+- **OPAC (Online Public Access Catalog)**  
+  Fitur pencarian buku berdasarkan kategori untuk mempermudah akses informasi.
 
-- Jalankan website dengan mengetik :
+- **Dan masih banyak lagi!**
 
-```shell
-php spark serve
-```
+---
 
-- Buka [http://localhost:8080](http://localhost:8080)
-- Login dengan kredensial `superadmin` berikut:
+## 🛠️ Teknologi yang Digunakan
 
-```txt
-username : superadmin
-email    : superadmin@admin.com
-password : superadmin
-```
+- **Backend**: [CodeIgniter 4](https://codeigniter.com/), [CodeIgniter Shield](https://codeigniter4.github.io/shield/)
+- **Frontend**: [Bootstrap 5](https://getbootstrap.com/), [Modernize Admin Template](https://adminmart.com/product/modernize-free-bootstrap-5-admin-template/)
+- **Icons**: [Tabler Icons](https://tabler-icons.io/)
+- **Charts**: [Apex Charts](https://apexcharts.com/)
+- **QR Code**: [Endroid QR Code Generator](https://github.com/endroid/qr-code), [Mebjas HTML5 QR Code Scanner](https://github.com/mebjas/html5-qrcode)
+- **Template**: [Classigrids Free Classified Ads](https://graygrids.com/templates/classigrids-free-classified-ads-html-template-ui-kit)
 
-## Contributing
+---
 
-Kami menerima kontribusi dari komunitas terbuka untuk meningkatkan aplikasi ini. Jika Anda menemukan masalah, bug, atau memiliki saran untuk peningkatan, silakan buat issue baru dalam repositori ini atau ajukan pull request.
+## 📝 Cara Instalasi
 
-## Donasi
+### Persyaratan Sistem
 
-[![Donate paypal](https://img.shields.io/badge/Donate-PayPal-green.svg?style=for-the-badge)](https://paypal.me/xannxett?country.x=ID&locale.x=en_US)
-[![Donate saweria](https://img.shields.io/badge/Donate-Saweria-red?style=for-the-badge&link=https%3A%2F%2Fsaweria.co%2Fxiboxann)](https://saweria.co/xiboxann)
+Sebelum memulai, pastikan Anda telah menginstal perangkat lunak berikut:
 
-## Lisensi
+- **Composer** (untuk mengelola dependensi PHP) - [Download Composer](https://getcomposer.org/download/)
+- **PHP 8.1+** dan **MySQL** (atau menggunakan [XAMPP](https://www.apachefriends.org/download.html) versi 8.1+ dengan extension `intl` dan `gd` aktif).
+- **Opsional**: Kamera/webcam untuk menggunakan scanner QR Code. Anda juga bisa menggunakan aplikasi **DroidCam** untuk menghubungkan kamera HP ke komputer.
 
-[![GitHub license](https://img.shields.io/github/license/ikhsan3adi/sistem-perpustakaan-qr-code?style=for-the-badge)](https://github.com/ikhsan3adi/sistem-perpustakaan-qr-code/raw/main/LICENSE)
+### Langkah Instalasi
 
-## Authors
+1. **Instal Composer dan Git**  
+   - Unduh dan install Composer dari [sini](https://getcomposer.org/download/).
+   - Unduh dan install Git dari [sini](https://git-scm.com/downloads).
 
-- [@ikhsan3adi](https://www.github.com/ikhsan3adi)
+2. **Clone atau Download Proyek**  
+   - Clone atau unduh repositori ini ke dalam folder proyek Anda (misalnya `htdocs`).
+
+3. **Konfigurasi File `.env`**  
+   - Salin file `.env.example` menjadi `.env`.
+   - Sesuaikan pengaturan seperti koneksi database, nama perpustakaan, dan logo di file `.env`.
+
+4. **Instal Dependensi**  
+   - Buka terminal di direktori proyek dan jalankan:
+     ```bash
+     composer install
+     ```
+   - Jika terjadi masalah, coba perintah alternatif:
+     ```bash
+     composer install --ignore-platform-reqs
+     ```
+
+5. **Buat Database**  
+   - Buat database dengan nama `db_cakrawalay` di phpMyAdmin atau MySQL.
+
+6. **Migrasi Database**  
+   - Jalankan migrasi untuk menyiapkan struktur tabel:
+     ```bash
+     php spark migrate --all
+     ```
+   - Jalankan seeder untuk mengisi data awal:
+     ```bash
+     php spark db:seed Seeder
+     ```
+
+7. **Jalankan Aplikasi**  
+   - Untuk menjalankan server lokal, ketikkan perintah:
+     ```bash
+     php spark serve
+     ```
+   - Buka aplikasi di browser melalui [http://localhost:8080](http://localhost:8080).
+
+8. **Login dengan Kredensial Default**  
+   - Gunakan akun `superadmin` untuk login pertama kali:
+     ```txt
+     username : superadmin
+     email    : superadmin@admin.com
+     password : superadmin
+     ```
+
+---
+
+## 🤝 Contributing
+
+Kami sangat menghargai kontribusi dari komunitas! Jika Anda menemukan bug, masalah, atau ingin berkontribusi pada peningkatan fitur, silakan buka [issue](https://github.com/ikhsan3adi/sistem-perpustakaan-qr-code/issues) atau ajukan [pull request](https://github.com/ikhsan3adi/sistem-perpustakaan-qr-code/pulls).
+
+---
+
+## 💸 Donasi
+
+Jika Anda merasa aplikasi ini bermanfaat dan ingin mendukung pengembangannya lebih lanjut, Anda bisa berdonasi melalui:
+
+- [Donate via PayPal](https://paypal.me/xannxett?country.x=ID&locale.x=en_US)
+- [Donate via Saweria](https://saweria.co/xiboxann)
+- [Donate Aji via Saweria]([Donate via Saweria](https://saweria.co/xiboxann)
+
+---
+
+## 📝 Lisensi
+
+Aplikasi ini dilisensikan di bawah [MIT License](https://github.com/ikhsan3adi/sistem-perpustakaan-qr-code/raw/main/LICENSE).
+
+---
+
+## 👨‍💻 Penulis
+
+- [@ikhsan3adi](https://github.com/ikhsan3adi)
+- [@mol3x](https://github.com/mol3x/) / Aji Ngamaarta ramadhan
+
+---
+
+Dengan format ini, README menjadi lebih menarik, informatif, dan mudah dipahami. Pembaca bisa dengan cepat menemukan informasi yang dibutuhkan tanpa kesulitan.
