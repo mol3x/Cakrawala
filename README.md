@@ -7,7 +7,7 @@ Tentu, berikut adalah versi yang lebih terstruktur dan menarik dari README yang 
 [![Continuous Integration](https://github.com/ikhsan3adi/sistem-perpustakaan-qr-code/actions/workflows/ci.yml/badge.svg)](https://github.com/ikhsan3adi/sistem-perpustakaan-qr-code/actions/workflows/ci.yml)  
 *Dikembangkan oleh [Aji Ngamarta Ramadhan](https://github.com/mol3x/Cakrawala)*
 
-![Preview](https://github.com/ikhsan3adi/sistem-perpustakaan-qr-code/raw/main/screenshots/home.png)
+![Preview](https://raw.githubusercontent.com/mol3x/Cakrawala/refs/heads/main/screenshots/home.png)
 
 ## 📜 Deskripsi Proyek
 
