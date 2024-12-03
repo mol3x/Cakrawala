@@ -29,7 +29,7 @@ BukuHub adalah aplikasi web berbasis QR Code yang mengelola perpustakaan dengan 
 - **Sistem Denda**  
   Perhitungan denda otomatis jika peminjaman melebihi batas waktu.
 
-- **Pencetakan Kartu Anggota & Struk Peminjaman**  
+- **Pencetakan Kartu Anggota, Struk Peminjaman & Struk Pengemblian**  
   Dapatkan kartu anggota dan struk peminjaman/pengembalian buku yang siap dicetak.
 
 - **Customisasi Nama, Logo, dan Lokasi Perpustakaan**  
