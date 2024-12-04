@@ -58,7 +58,7 @@ if (auth()->user()->inGroup('superadmin') ?? false) {
              'Pengaturan',
             [
                 'name' => 'Setting',
-                'link' => '/admin/setting', // Important: Add the settings route here
+                'link' => '/admin/setting',
                 'icon' => 'ti ti-settings'
             ],
             'Manajemen Akun',
