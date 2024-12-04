@@ -7,7 +7,7 @@ Tentu, berikut adalah versi yang lebih terstruktur dan menarik dari README yang 
 [![Continuous Integration](https://github.com/ikhsan3adi/sistem-perpustakaan-qr-code/actions/workflows/ci.yml/badge.svg)](https://github.com/ikhsan3adi/sistem-perpustakaan-qr-code/actions/workflows/ci.yml)  
 *Dikembangkan oleh [Aji Ngamarta Ramadhan](https://github.com/mol3x/Cakrawala)*
 
-![Preview](https://github.com/ikhsan3adi/sistem-perpustakaan-qr-code/raw/main/screenshots/home.png)
+![Preview](https://raw.githubusercontent.com/mol3x/Cakrawala/refs/heads/main/screenshots/home.png)
 
 ## 📜 Deskripsi Proyek
 
@@ -29,7 +29,7 @@ BukuHub adalah aplikasi web berbasis QR Code yang mengelola perpustakaan dengan 
 - **Sistem Denda**  
   Perhitungan denda otomatis jika peminjaman melebihi batas waktu.
 
-- **Pencetakan Kartu Anggota & Struk Peminjaman**  
+- **Pencetakan Kartu Anggota, Struk Peminjaman & Struk Pengemblian**  
   Dapatkan kartu anggota dan struk peminjaman/pengembalian buku yang siap dicetak.
 
 - **Customisasi Nama, Logo, dan Lokasi Perpustakaan**  
