@@ -5,7 +5,7 @@ Tentu, berikut adalah versi yang lebih terstruktur dan menarik dari README yang 
 # BukuHub - Sistem Perpustakaan QR Code 📚 QR Code Library System
 
 [![Continuous Integration](https://github.com/ikhsan3adi/sistem-perpustakaan-qr-code/actions/workflows/ci.yml/badge.svg)](https://github.com/ikhsan3adi/sistem-perpustakaan-qr-code/actions/workflows/ci.yml)  
-*Dikembangkan oleh [Aji Ngamarta Ramadhan](https://github.com/mol3x/Cakrawala)*
+*Dimodifikasi oleh [Aji Ngamarta Ramadhan](https://github.com/mol3x/Cakrawala)*
 
 ![Preview](https://raw.githubusercontent.com/mol3x/Cakrawala/refs/heads/main/screenshots/home.png)
 
