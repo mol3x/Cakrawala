@@ -47,6 +47,7 @@ $routes->post('admin/members/printSelectedCards', 'Members\MembersController::pr
 $routes->get('admin/members/printmassal', 'Members\MembersController::printmassal');
 
 $routes->get('admin/loans/print/(:segment)', 'Loans\LoansController::print/$1');
+$routes->get('admin/loans/edit/(:segment)', 'Loans\LoansController::edit/$1');
 $routes->get('admin/returns/print/(:segment)', 'Loans\ReturnsController::print/$1');
 
 

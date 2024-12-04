@@ -5,6 +5,7 @@ namespace App\Controllers\Loans;
 use App\Models\FinesPerDayModel;
 use CodeIgniter\RESTful\ResourceController;
 
+
 class FineSettingsController extends ResourceController
 {
     public function index()

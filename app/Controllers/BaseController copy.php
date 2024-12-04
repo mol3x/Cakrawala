@@ -8,7 +8,6 @@ use CodeIgniter\HTTP\ResponseInterface;
 use Psr\Log\LoggerInterface;
 use App\Models\SettingModel;  // Import SettingModel
 
-
 abstract class BaseController extends Controller
 {
     /**
@@ -51,13 +50,5 @@ abstract class BaseController extends Controller
 
         // Menambahkan helper lainnya jika diperlukan
         $this->helpers = array_merge($this->helpers, ['setting']);
-    }
-     public function render(string $view, array $data = [])
-    {
-        // Gabungkan data yang dikirim dengan data global
-        $data = array_merge($this->data, $data);
-
-        // Mengembalikan view dengan data yang sudah digabungkan
-        return view($view, $data);
     }
 }

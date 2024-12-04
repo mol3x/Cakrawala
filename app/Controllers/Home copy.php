@@ -20,7 +20,11 @@ class Home extends BaseController
     public function index(): string
     
     {
-         return $this->render('home/home');
+          $data = [
+        'setting' => $this->data['setting'],  // Menambahkan setting ke data yang dikirim ke view
+    ];
+
+         return view('home/home', $data);
     }
 
     public function book(): string
@@ -91,7 +95,7 @@ class Home extends BaseController
         'category'      => $category
     ];
 
-    return $this->render('home/book', $data);
+    return view('home/book', $data);
 }
 
 
@@ -141,22 +145,24 @@ class Home extends BaseController
     }
 
     public function news() {
-        return $this->render('home/Menu/news'); // Mengarahkan ke file news.php
+        return view('home/Menu/news'); // Mengarahkan ke file news.php
     }
     public function visiMisi() {
-      
-        return $this->render('home/Menu/Profile/visiMisi'); // Mengarahkan ke file visiMisi.php
+           $data = [
+        'setting' => $this->data['setting'],  // Menambahkan setting ke data yang dikirim ke view
+    ];
+        return view('home/Menu/Profile/visiMisi', $data); // Mengarahkan ke file visiMisi.php
     }
     public function sejarah() {
-        return $this->render('home/Menu/Profile/sejarah'); // Mengarahkan ke file visiMisi.php
+        return view('home/Menu/Profile/sejarah'); // Mengarahkan ke file visiMisi.php
     }
     public function peraturandankebijakan() {
-        return $this->render('home/Menu/Profile/peraturandankebijakan'); // Mengarahkan ke file visiMisi.php
+        return view('home/Menu/Profile/peraturandankebijakan'); // Mengarahkan ke file visiMisi.php
     }
     public function aboutus() {
-        return $this->render('home/Menu/Profile/aboutus'); // Mengarahkan ke file visiMisi.php
+        return view('home/Menu/Profile/aboutus'); // Mengarahkan ke file visiMisi.php
     }
     public function struktur() {
-        return $this->render('home/Menu/Profile/struktur'); // Mengarahkan ke file visiMisi.php
+        return view('home/Menu/Profile/struktur'); // Mengarahkan ke file visiMisi.php
     }
 }

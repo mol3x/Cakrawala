@@ -6,7 +6,6 @@ use App\Models\BookModel;
 use App\Models\RackModel;
 use CodeIgniter\Exceptions\PageNotFoundException;
 use CodeIgniter\RESTful\ResourceController;
-
 class RacksController extends ResourceController
 {
     protected RackModel $rackModel;

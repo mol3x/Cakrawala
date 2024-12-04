@@ -9,9 +9,11 @@ use App\Models\LoanModel;
 use App\Models\RackModel;
 use CodeIgniter\Exceptions\PageNotFoundException;
 use CodeIgniter\RESTful\ResourceController;
+use App\Models\SettingModel;
 
 class BooksController extends ResourceController
 {
+    protected SettingModel $SettingModel;
     protected BookModel $bookModel;
     protected CategoryModel $categoryModel;
     protected RackModel $rackModel;

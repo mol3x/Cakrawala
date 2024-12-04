@@ -112,8 +112,6 @@
 
 <?= $this->endSection() ?>
 
-
-
 <?= $this->section('content') ?>
 <?= $this->include('layouts/frontend/navbarFront') ?>
 <!-- Start Breadcrumbs -->
@@ -186,5 +184,5 @@
     </div>
     
 
-<?= $this->include('layouts/frontend/footerFront') ?>
+<?= $this->include('layouts/frontend/footerFront', ['setting' => $setting]) ?>
 <?= $this->endSection() ?>
