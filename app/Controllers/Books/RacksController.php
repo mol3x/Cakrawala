@@ -6,15 +6,22 @@ use App\Models\BookModel;
 use App\Models\RackModel;
 use CodeIgniter\Exceptions\PageNotFoundException;
 use CodeIgniter\RESTful\ResourceController;
+use App\Models\SettingModel;
 class RacksController extends ResourceController
 {
     protected RackModel $rackModel;
     protected BookModel $bookModel;
+    protected SettingModel $SettingModel;
+    protected $setting;
 
     public function __construct()
     {
         $this->rackModel = new RackModel;
         $this->bookModel = new BookModel;
+        $this->SettingModel = new SettingModel;
+        
+
+        $this->setting = $this->SettingModel->first();
     }
 
     /**
@@ -42,6 +49,7 @@ class RacksController extends ResourceController
             'pager'             => $this->rackModel->pager,
             'currentPage'       => $this->request->getVar('page_racks') ?? 1,
             'itemPerPage'       => $itemPerPage,
+            'setting'       => $this->setting,
         ];
 
         return view('racks/index', $data);
@@ -75,6 +83,7 @@ class RacksController extends ResourceController
             'pager'         => $this->bookModel->pager,
             'currentPage'   => $this->request->getVar('page_books') ?? 1,
             'itemPerPage'   => $itemPerPage,
+            'setting'       => $this->setting,
             'rack'          => $this->rackModel
                 ->select('racks.name')
                 ->where('id', $id)->first()['name']
@@ -92,6 +101,7 @@ class RacksController extends ResourceController
     {
         return view('racks/create', [
             'validation' => \Config\Services::validation(),
+            'setting'       => $this->setting,
         ]);
     }
 
@@ -147,6 +157,7 @@ class RacksController extends ResourceController
         $data = [
             'rack'          => $rack,
             'validation'    => \Config\Services::validation(),
+            'setting'       => $this->setting,
         ];
 
         return view('racks/edit', $data);

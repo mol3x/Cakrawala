@@ -64,7 +64,7 @@
             <th scope="col">Judul</th>
             <th scope="col">Kategori</th>
             <th scope="col">Rak</th>
-            <th scope="col">Sisa Stock</th>
+            <th scope="col">Jumlah</th>
             <th scope="col" class="text-center">Aksi</th>
           </tr>
         </thead>
@@ -96,7 +96,7 @@
               </td>
               <td><?= $book['category']; ?></td>
               <td><?= $book['rack']; ?></td>
-              <td><?= $book['bookStock'] ?></td>
+              <td><?= $book['quantity']; ?></td>
               <td>
                 <a href="<?= base_url("admin/books/{$book['slug']}/edit"); ?>" class="d-block btn btn-primary w-100 mb-2">
                   <i class="ti ti-edit"></i>

@@ -10,20 +10,27 @@ use CodeIgniter\Exceptions\PageNotFoundException;
 use CodeIgniter\HTTP\Method;
 use CodeIgniter\I18n\Time;
 use CodeIgniter\RESTful\ResourceController;
+use App\Models\SettingModel;
 
 class LoansController extends ResourceController
 {
     protected LoanModel $loanModel;
     protected MemberModel $memberModel;
     protected BookModel $bookModel;
+    protected SettingModel $SettingModel;
 
     public function __construct()
     {
         $this->loanModel = new LoanModel;
         $this->memberModel = new MemberModel;
         $this->bookModel = new BookModel;
+        $this->SettingModel = new SettingModel;
 
         helper('upload');
+    }
+    protected function getSettingData()
+    {
+        return $this->SettingModel->first(); // Ambil data setting yang diperlukan
     }
 
     /**
@@ -31,6 +38,7 @@ class LoansController extends ResourceController
      *
      * @return mixed
      */
+    
     public function index()
             {
                 $itemPerPage = 20;
@@ -70,12 +78,15 @@ class LoansController extends ResourceController
                     return $loan['deleted_at'] == null && $loan['return_date'] == null;
                 });
 
+                // Ambil data setting
+                $setting = $this->getSettingData();
                 $data = [
                     'loans'         => $loans,
                     'pager'         => $this->loanModel->pager,
                     'currentPage'   => $this->request->getVar('page_loans') ?? 1,
                     'itemPerPage'   => $itemPerPage,
                     'search'        => $this->request->getGet('search'),
+                    'setting'       => $setting,  
                     'sort'           => $sortOrder  // Kirimkan parameter sort ke view untuk memilih urutan
                 ];
 
@@ -131,9 +142,12 @@ class LoansController extends ResourceController
 
             return redirect()->to("admin/loans/{$loan['uid']}");
         }
+        // Ambil data setting
+        $setting = $this->getSettingData();
 
         $data = [
             'loan'         => $loan,
+            'setting'       => $setting,  
         ];
 
         return view('loans/show', $data);
@@ -165,8 +179,12 @@ class LoansController extends ResourceController
             return view('loans/member', ['members' => $members]);
         }
 
-        return view('loans/search_member');
+        // Ambil data setting
+        $setting = $this->getSettingData();
+
+        return view('loans/search_member', ['setting'       => $setting,  ]);
     }
+    
 
     public function searchBook()
     {
@@ -222,8 +240,10 @@ class LoansController extends ResourceController
             session()->setFlashdata(['msg' => 'Member not found', 'error' => true]);
             return redirect()->to('admin/loans/new/members/search');
         }
+            // Ambil data setting
+        $setting = $this->getSettingData();
 
-        return view('loans/search_book', ['member' => $member]);
+        return view('loans/search_book', ['member' => $member, 'setting' => $setting,]);
     }
 
     protected function getRemainingBookStocks($book)
@@ -278,12 +298,15 @@ class LoansController extends ResourceController
                 array_push($books, $book);
             }
         }
+        // Ambil data setting
+    $setting = $this->getSettingData();
 
         $data = [
             'books'      => $books,
             'member'     => $member,
             'validation' => $validation ?? \Config\Services::validation(),
             'oldInput'   => $oldInput,
+            'setting'       => $setting,
         ];
 
         return view('loans/create', $data);
@@ -367,8 +390,11 @@ class LoansController extends ResourceController
                 ->where('loans.id', $id)->first();
         }, $newLoanIds);
 
+        // Ambil data setting
+    $setting = $this->getSettingData();
+
         return view('loans/result', [
-            'newLoans'  => $newLoans
+            'newLoans'  => $newLoans, 'setting'       => $setting,
         ]);
     }
 
@@ -432,11 +458,13 @@ public function edit($uid = null)
     if (empty($loan)) {
         throw new PageNotFoundException('Loan not found');
     }
-
+// Ambil data setting
+    $setting = $this->getSettingData();
     // Tampilkan form untuk mengedit durasi peminjaman
     $data = [
         'loan' => $loan,
         'validation' => \Config\Services::validation(),
+        'setting'       => $setting,
     ];
 
     return view('loans/edit', $data);
@@ -487,9 +515,10 @@ public function update($uid = null)
     if (empty($loan)) {
         throw new PageNotFoundException('Loan not found');
     }
-
+    // Ambil data setting
+    $setting = $this->getSettingData();
     // Pass the loan data to the print view
-    return view('loans/print', ['loan' => $loan]);
+    return view('loans/print', ['loan' => $loan, 'setting'       => $setting,]);
 }
 
 

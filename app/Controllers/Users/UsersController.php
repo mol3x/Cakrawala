@@ -7,14 +7,22 @@ use CodeIgniter\RESTful\ResourceController;
 use CodeIgniter\Shield\Authentication\Passwords;
 use CodeIgniter\Shield\Entities\User;
 use CodeIgniter\Shield\Models\UserModel;
+use App\Models\SettingModel;
 
 class UsersController extends ResourceController
 {
     protected UserModel $userModel;
+    protected SettingModel $SettingModel;
+    protected $setting;
+    
 
     public function __construct()
     {
         $this->userModel = new UserModel;
+        $this->SettingModel = new SettingModel;
+        
+
+        $this->setting = $this->SettingModel->first();
     }
 
     /**
@@ -33,6 +41,7 @@ class UsersController extends ResourceController
             'pager'             => $this->userModel->pager,
             'currentPage'       => $this->request->getVar('page_users') ?? 1,
             'itemPerPage'       => $itemPerPage,
+            'setting'       => $this->setting,
         ];
 
         return view('users/index', $data);
@@ -55,6 +64,7 @@ class UsersController extends ResourceController
         $data = [
             'user'           => $user,
             'validation'     => \Config\Services::validation(),
+            'setting'       => $this->setting,
         ];
 
         return view('users/edit', $data);

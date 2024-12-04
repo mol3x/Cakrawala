@@ -11,6 +11,7 @@ use App\Models\MemberModel;
 use CodeIgniter\Exceptions\PageNotFoundException;
 use CodeIgniter\I18n\Time;
 use CodeIgniter\RESTful\ResourceController;
+use App\Models\SettingModel;
 
 class MembersController extends ResourceController
 {
@@ -19,6 +20,7 @@ class MembersController extends ResourceController
     protected BookStockModel $bookStockModel;
     protected LoanModel $loanModel;
     protected FineModel $fineModel;
+    protected SettingModel $SettingModel;
 
     public function __construct()
     {
@@ -27,6 +29,7 @@ class MembersController extends ResourceController
         $this->bookStockModel = new BookStockModel;
         $this->loanModel = new LoanModel;
         $this->fineModel = new FineModel;
+        $this->SettingModel = new SettingModel;
 
         helper('upload');
     }
@@ -64,6 +67,7 @@ class MembersController extends ResourceController
             ->orderBy($sortColumn, $orderDirection) // Terapkan urutan berdasarkan parameter sort
             ->paginate($itemPerPage, 'members');
     }
+      $setting = $this->SettingModel->first();
 
     $data = [
         'members'           => $members,
@@ -71,6 +75,7 @@ class MembersController extends ResourceController
         'currentPage'       => $this->request->getVar('page_categories') ?? 1,
         'itemPerPage'       => $itemPerPage,
         'search'            => $this->request->getGet('search'),
+        'setting'           => $setting, 
         'sort'              => $sortOrder  // Tambahkan ini untuk mengakses di view
     ];
 
@@ -152,6 +157,7 @@ class MembersController extends ResourceController
             $this->memberModel->update($member['id'], ['qr_code' => $qrCode]);
             $member = $this->memberModel->where('uid', $uid)->first();
         }
+         $setting = $this->SettingModel->first();
 
         $data = [
             'member'            => $member,
@@ -161,6 +167,7 @@ class MembersController extends ResourceController
             'lateCount'         => count($lateLoans),
             'unpaidFines'       => $unpaidFines,
             'paidFines'         => $paidFines,
+            'setting'           => $setting, 
         ];
 
         return view('members/show', $data);
@@ -173,8 +180,10 @@ class MembersController extends ResourceController
      */
     public function new()
     {
+         $setting = $this->SettingModel->first();
         return view('members/create', [
-            'validation' => \Config\Services::validation()
+            'validation' => \Config\Services::validation(),
+            'setting'           => $setting, 
         ]);
     }
 
@@ -198,6 +207,7 @@ class MembersController extends ResourceController
        'foto' => 'permit_empty|is_image[foto]|mime_in[foto,image/jpg,image/jpeg,image/gif,image/png,image/webp]|max_size[foto,25048]',
 
     ])) {
+        
         $data = [
             'validation' => \Config\Services::validation(),
             'oldInput'   => $this->request->getVar(),
@@ -264,6 +274,7 @@ class MembersController extends ResourceController
         session()->setFlashdata(['msg' => 'Insert failed']);
         return view('members/create', $data);
     }
+    
 
     session()->setFlashdata(['msg' => 'Insert new member successful']);
     return redirect()->to('admin/members');
@@ -281,10 +292,12 @@ class MembersController extends ResourceController
         if (empty($member)) {
             throw new PageNotFoundException('Member not found');
         }
+         $setting = $this->SettingModel->first();
 
         $data = [
             'member'     => $member,
             'validation' => \Config\Services::validation(),
+            'setting'           => $setting, 
         ];
 
         return view('members/edit', $data);
@@ -496,13 +509,14 @@ class MembersController extends ResourceController
                     $members = $this->memberModel->orderBy('updated_at', 'DESC');
                     $members = $this->memberModel->paginate($itemPerPage, 'members');
                 }
-                
+                 $setting = $this->SettingModel->first();
 
                 $data = [
                     'members'           => $members,
                     'pager'             => $this->memberModel->pager,
                     'currentPage'       => $this->request->getVar('page_categories') ?? 1,
                     'itemPerPage'       => $itemPerPage,
+                    'setting'           => $setting, 
                     'search'            => $this->request->getGet('search')
                 ];
                 

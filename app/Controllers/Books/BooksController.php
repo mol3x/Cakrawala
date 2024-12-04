@@ -18,6 +18,8 @@ class BooksController extends ResourceController
     protected RackModel $rackModel;
     protected BookStockModel $bookStockModel;
     protected LoanModel $loanModel;
+    protected $setting;
+    
 
     public function __construct()
     {
@@ -26,6 +28,10 @@ class BooksController extends ResourceController
         $this->rackModel = new RackModel;
         $this->bookStockModel = new BookStockModel;
         $this->loanModel = new LoanModel;
+        $this->SettingModel = new SettingModel;
+        
+
+        $this->setting = $this->SettingModel->first();
 
         helper('upload');
     }
@@ -116,6 +122,7 @@ class BooksController extends ResourceController
         'itemPerPage'   => $itemPerPage,
         'search'        => $keyword,
         'searchType'    => $searchType,
+        'setting'       => $this->setting,
     ];
 
     return view('books/index', $data);
@@ -159,6 +166,7 @@ class BooksController extends ResourceController
         $data = [
             'book'      => $book,
             'loanCount' => $loanCount ?? 0,
+            'setting'       => $this->setting,
             'bookStock' => $bookStock
         ];
 
@@ -179,6 +187,7 @@ class BooksController extends ResourceController
             'categories' => $categories,
             'racks'      => $racks,
             'validation' => \Config\Services::validation(),
+            'setting'       => $this->setting,
         ];
 
         return view('books/create', $data);
@@ -272,6 +281,7 @@ class BooksController extends ResourceController
             'categories' => $categories,
             'racks'      => $racks,
             'validation' => \Config\Services::validation(),
+            'setting'       => $this->setting,
         ];
 
         return view('books/edit', $data);
@@ -309,6 +319,7 @@ class BooksController extends ResourceController
             'book'       => $book,
             'categories' => $categories,
             'racks'      => $racks,
+            'setting'       => $this->setting,
             'validation' => \Config\Services::validation(),
             'oldInput'   => $this->request->getVar(),
         ];
@@ -426,6 +437,7 @@ class BooksController extends ResourceController
     // Prepare data for the view
     $data = [
         'book' => $book,
+        'setting'       => $this->setting,
         'loanCount' => $loanCount,  // Number of currently borrowed copies
         'bookStock' => $bookStock,  // Remaining stock after deducting borrowed copies
         'pager' => $this->bookModel->pager,

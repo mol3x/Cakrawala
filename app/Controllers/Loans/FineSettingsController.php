@@ -4,15 +4,29 @@ namespace App\Controllers\Loans;
 
 use App\Models\FinesPerDayModel;
 use CodeIgniter\RESTful\ResourceController;
-
+use App\Models\SettingModel;
 
 class FineSettingsController extends ResourceController
+
 {
+      protected SettingModel $SettingModel;
+    protected $setting; 
+
+    public function __construct()
+    {
+      
+        $this->SettingModel = new SettingModel;
+        
+
+        $this->setting = $this->SettingModel->first();
+        helper('upload');
+    }
     public function index()
     {
         return view('fines/settings', [
             'fine' => FinesPerDayModel::get(),
-            'validation' => \Config\Services::validation()
+            'validation' => \Config\Services::validation(),
+            'setting'       => $this->setting,
         ]);
     }
 

@@ -9,6 +9,7 @@ use App\Models\MemberModel;
 use CodeIgniter\Exceptions\PageNotFoundException;
 use CodeIgniter\I18n\Time;
 use CodeIgniter\RESTful\ResourceController;
+use App\Models\SettingModel;
 
 class FinesController extends ResourceController
 {
@@ -16,6 +17,8 @@ class FinesController extends ResourceController
     protected FineModel $fineModel;
     protected MemberModel $memberModel;
     protected BookModel $bookModel;
+    protected SettingModel $SettingModel;
+    protected $setting; 
 
     public function __construct()
     {
@@ -23,9 +26,13 @@ class FinesController extends ResourceController
         $this->fineModel = new FineModel;
         $this->memberModel = new MemberModel;
         $this->bookModel = new BookModel;
+        $this->SettingModel = new SettingModel;
+        
 
+        $this->setting = $this->SettingModel->first();
         helper('upload');
     }
+    
 
     /**
      * Return an array of resource objects, themselves in array format
@@ -92,6 +99,7 @@ class FinesController extends ResourceController
             'currentPage'   => $this->request->getVar('page_fines') ?? 1,
             'itemPerPage'   => $itemPerPage,
             'search'        => $this->request->getGet('search'),
+            'setting'       => $this->setting,
             'sort'          => $sortOrder  // Kirimkan parameter sort ke view untuk memilih urutan
         ];
 

@@ -47,12 +47,7 @@ $sidebarNavs = [
         'link' => '/admin/racks',
         'icon' => 'ti ti-columns'
     ],
-    'Pengaturan',
-    [
-        'name' => 'Setting',
-        'link' => '/admin/setting', // Important: Add the settings route here
-        'icon' => 'ti ti-settings'
-    ]
+   
 ];
 
 
@@ -60,12 +55,19 @@ if (auth()->user()->inGroup('superadmin') ?? false) {
     $sidebarNavs = array_merge(
         $sidebarNavs,
         [
+             'Pengaturan',
+            [
+                'name' => 'Setting',
+                'link' => '/admin/setting', // Important: Add the settings route here
+                'icon' => 'ti ti-settings'
+            ],
             'Manajemen Akun',
             [
                 'name' => 'Admin',
                 'link' => '/admin/users',
                 'icon' => 'ti ti-user-cog'
-            ]
+            ],
+            
         ]
     );
 }

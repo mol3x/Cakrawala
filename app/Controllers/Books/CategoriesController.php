@@ -6,16 +6,23 @@ use App\Models\BookModel;
 use App\Models\CategoryModel;
 use CodeIgniter\Exceptions\PageNotFoundException;
 use CodeIgniter\RESTful\ResourceController;
+use App\Models\SettingModel;
 
 class CategoriesController extends ResourceController
 {
+    protected SettingModel $SettingModel;
     protected CategoryModel $categoryModel;
     protected BookModel $bookModel;
+     protected $setting;
 
     public function __construct()
     {
         $this->categoryModel = new CategoryModel;
         $this->bookModel = new BookModel;
+         $this->SettingModel = new SettingModel;
+        
+
+        $this->setting = $this->SettingModel->first();
     }
 
     /**
@@ -43,6 +50,7 @@ class CategoriesController extends ResourceController
             'pager'             => $this->categoryModel->pager,
             'currentPage'       => $this->request->getVar('page_categories') ?? 1,
             'itemPerPage'       => $itemPerPage,
+            'setting'       => $this->setting,
         ];
 
         return view('categories/index', $data);
@@ -93,6 +101,7 @@ class CategoriesController extends ResourceController
     {
         return view('categories/create', [
             'validation' => \Config\Services::validation(),
+            'setting'       => $this->setting,
         ]);
     }
 
@@ -146,6 +155,7 @@ class CategoriesController extends ResourceController
         $data = [
             'category'       => $category,
             'validation'     => \Config\Services::validation(),
+            'setting'       => $this->setting,
         ];
 
         return view('categories/edit', $data);

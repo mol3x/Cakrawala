@@ -48,7 +48,12 @@ $routes->get('admin/members/printmassal', 'Members\MembersController::printmassa
 
 $routes->get('admin/loans/print/(:segment)', 'Loans\LoansController::print/$1');
 $routes->get('admin/loans/edit/(:segment)', 'Loans\LoansController::edit/$1');
+$routes->post('admin/loans/update/(:any)', 'Loans\LoansController::update/$1');
+
+
 $routes->get('admin/returns/print/(:segment)', 'Loans\ReturnsController::print/$1');
+$routes->get('admin/returns/print/(:segment)', 'Loans\ReturnsController::print/$1');
+
 
 
 
@@ -78,9 +83,9 @@ $routes->group('admin', ['filter' => 'session'], static function (RouteCollectio
     $routes->resource('fines', ['controller' => 'Loans\FinesController']);
 
     
-    $routes->get('setting/', 'SettingController::index');
-    $routes->get('setting/edit/(:segment)', 'SettingController::edit/$1');
-    $routes->post('setting/update/(:segment)', 'SettingController::update/$1');
+    $routes->get('setting/', 'SettingController::index', ['filter' => 'group:superadmin']);
+    $routes->get('setting/edit/(:segment)', 'SettingController::edit/$1', ['filter' => 'group:superadmin']);
+    $routes->post('setting/update/(:segment)', 'SettingController::update/$1', ['filter' => 'group:superadmin']);
 
     $routes->group('users', ['filter' => 'group:superadmin'], static function (RouteCollection $routes) {
         $routes->get('new', 'Users\RegisterController::index');

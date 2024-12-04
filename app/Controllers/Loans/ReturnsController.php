@@ -11,6 +11,7 @@ use App\Models\MemberModel;
 use CodeIgniter\Exceptions\PageNotFoundException;
 use CodeIgniter\I18n\Time;
 use CodeIgniter\RESTful\ResourceController;
+use App\Models\SettingModel;
 
 class ReturnsController extends ResourceController
 {
@@ -18,6 +19,9 @@ class ReturnsController extends ResourceController
     protected FineModel $fineModel;
     protected MemberModel $memberModel;
     protected BookModel $bookModel;
+    protected SettingModel $SettingModel;
+    protected $setting; 
+    
 
     public function __construct()
     {
@@ -25,8 +29,16 @@ class ReturnsController extends ResourceController
         $this->fineModel = new FineModel;
         $this->memberModel = new MemberModel;
         $this->bookModel = new BookModel;
+        $this->SettingModel = new SettingModel;
+        
 
+        $this->setting = $this->SettingModel->first();
         helper('upload');
+    }
+
+    protected function getSettingData()
+    {
+        return $this->SettingModel->first(); // Ambil data setting yang diperlukan
     }
 
     /**
@@ -80,6 +92,7 @@ class ReturnsController extends ResourceController
             'pager'         => $this->loanModel->pager,
             'currentPage'   => $this->request->getVar('page_returns') ?? 1,
             'itemPerPage'   => $itemPerPage,
+             'setting'       => $this->setting,
             'sort'           => $sortOrder 
         ];
 
@@ -136,9 +149,11 @@ class ReturnsController extends ResourceController
 
             return redirect()->to("admin/returns/{$loan['uid']}");
         }
+        $setting = $this->getSettingData();
 
         $data = [
             'loan'         => $loan,
+             'setting'       => $this->setting,
         ];
 
         return view('returns/show', $data);
@@ -176,8 +191,10 @@ class ReturnsController extends ResourceController
 
             return view('returns/loan', ['loans' => $loans]);
         }
-
-        return view('returns/search_loan');
+        $data = [
+             'setting'       => $this->setting,
+        ];
+        return view('returns/search_loan',$data);
     }
 
     /**
@@ -209,9 +226,11 @@ class ReturnsController extends ResourceController
         if (empty($loan)) {
             throw new PageNotFoundException('Loan not found');
         }
+       
 
         $data = [
             'loan'       => $loan[array_key_first($loan)],
+            'setting'       => $this->setting,
             'validation' => $validation ?? \Config\Services::validation()
         ];
 
@@ -267,9 +286,10 @@ class ReturnsController extends ResourceController
                 return redirect()->to('admin/returns/new?loan-uid=' . $loan['uid']);
             }
         }
-
+        
+        
         session()->setFlashdata(['msg' => 'Success', 'error' => false]);
-        return redirect()->to('admin/returns');
+        return redirect()->to('admin/returns', );
     }
 
     /**
@@ -375,6 +395,7 @@ class ReturnsController extends ResourceController
         'loan' => $loan,
         'isFinePaid' => $isFinePaid,
         'isFined' => $isFined,
+         'setting'       => $this->setting,
     ];
 
     // Mengembalikan view yang akan dicetak

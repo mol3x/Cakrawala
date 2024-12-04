@@ -10,9 +10,11 @@ use App\Models\MemberModel;
 use App\Models\RackModel;
 use CodeIgniter\I18n\Time;
 use CodeIgniter\RESTful\ResourceController;
+use App\Models\SettingModel;
 
 class DashboardController extends ResourceController
 {
+    protected SettingModel $SettingModel;
     protected BookModel $bookModel;
     protected RackModel $rackModel;
     protected CategoryModel $categoryModel;
@@ -28,12 +30,18 @@ class DashboardController extends ResourceController
         $this->memberModel = new MemberModel;
         $this->loanModel = new LoanModel;
         $this->fineModel = new FineModel;
+        $this->SettingModel = new SettingModel;
     }
 
     public function index()
     {
+        
         return redirect('admin/dashboard');
     }
+    protected function getSettingData()
+{
+    return $this->SettingModel->first(); // Ambil data setting yang diperlukan
+}
 
     public function dashboard()
     {
@@ -43,6 +51,7 @@ class DashboardController extends ResourceController
             $this->getWeeklyOverview(),
             $this->getMonthlyFines(),
             $this->getTotalArrears(),
+            ['setting' => $this->getSettingData()]
         );
 
         return view('dashboard/index', $data);

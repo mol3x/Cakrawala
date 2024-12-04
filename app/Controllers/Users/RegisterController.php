@@ -7,6 +7,7 @@ use CodeIgniter\HTTP\RedirectResponse;
 use CodeIgniter\Shield\Controllers\RegisterController as RegisterCtrl;
 use CodeIgniter\Shield\Exceptions\ValidationException;
 
+
 class RegisterController extends RegisterCtrl
 {
     public function index()

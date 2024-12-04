@@ -13,7 +13,7 @@
                     <div class="hero-text text-center">
                         <!-- Start Hero Text -->
                         <div class="section-heading">
-                            <h2 class="">Welcome to Cakrawala</h2>
+                            <h2 class="">Welcome to <?= esc($setting['nama']); ?></h2>
                             <p class="">Perpustakaan Cerdas, Akses, Kreatif, Ragam, Apik,<br>Wawasan, Abadi, Luas Aktual.</p>
                         </div>
                         <!-- End Search Form -->
