@@ -22,5 +22,7 @@ class Seeder extends DatabaseSeeder
         // run category, rack, book & bookstock seeder
         $this->call('SettingSeeder');
 
+        $this->call('CategoriesSeeder');
+
     }
 }

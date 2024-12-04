@@ -4,51 +4,68 @@ namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
 
-class CreateSettingTable extends Migration
+class CreateUsersTable extends Migration
 {
     public function up()
     {
-        // Membuat field untuk tabel setting
         $this->forge->addField([
             'id' => [
                 'type'           => 'INT',
                 'constraint'     => 11,
                 'unsigned'       => true,
-                'auto_increment' => true
+                'auto_increment' => true,
             ],
-            'logo' => [
+            'username' => [
+                'type'           => 'VARCHAR',
+                'constraint'     => 30,
+                'null'           => true,
+            ],
+            'status' => [
                 'type'           => 'VARCHAR',
                 'constraint'     => 255,
+                'null'           => true,
             ],
-            'nama' => [
+            'status_message' => [
                 'type'           => 'VARCHAR',
-                'constraint'     => 50,
+                'constraint'     => 255,
+                'null'           => true,
             ],
-            'maps' => [
-                'type'           => 'TEXT',
-                'null'           => false,
-                'charset'        => 'utf8mb4',
-                'collation'      => 'utf8mb4_0900_ai_ci',
+            'active' => [
+                'type'           => 'TINYINT',
+                'constraint'     => 1,
+                'default'        => 0,
             ],
-            'alamattext' => [
-                'type'           => 'VARCHAR',
-                'constraint'     => 250,
+            'last_active' => [
+                'type'           => 'DATETIME',
+                'null'           => true,
             ],
-            'created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NULL',
-            'updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NULL',
-            'deleted_at TIMESTAMP NULL',
+            'created_at' => [
+                'type'           => 'DATETIME',
+                'null'           => true,
+            ],
+            'updated_at' => [
+                'type'           => 'DATETIME',
+                'null'           => true,
+            ],
+            'deleted_at' => [
+                'type'           => 'DATETIME',
+                'null'           => true,
+            ],
         ]);
 
-        // Menambahkan primary key untuk kolom id
+        // Menambahkan primary key pada kolom 'id'
         $this->forge->addPrimaryKey('id');
 
-        // Membuat tabel
-        $this->forge->createTable('setting', true);
+        // Menambahkan unique key pada kolom 'username'
+        $this->forge->addUniqueKey('username');
+
+        // Membuat tabel 'users'
+        $this->forge->createTable('users', true);
     }
 
     public function down()
     {
-        // Menghapus tabel setting jika rollback migrasi
-        $this->forge->dropTable('setting');
+        // Menghapus tabel 'users' jika migrasi dibatalkan
+        $this->forge->dropTable('users');
     }
 }
