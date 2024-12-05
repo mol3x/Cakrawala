@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Waktu pembuatan: 05 Des 2024 pada 10.10
+-- Waktu pembuatan: 05 Des 2024 pada 11.46
 -- Versi server: 8.0.30
 -- Versi PHP: 8.1.10
 
@@ -70,7 +70,7 @@ CREATE TABLE `auth_identities` (
 --
 
 INSERT INTO `auth_identities` (`id`, `user_id`, `type`, `name`, `secret`, `secret2`, `expires`, `extra`, `force_reset`, `last_used_at`, `created_at`, `updated_at`) VALUES
-(1, 1, 'email_password', NULL, 'superadmin@admin.com', '$2y$12$37wyTuVspgAQLCaJpoBaU.xHZUwDvXvby5buXYa8yY8/0ENMgG.kW', NULL, NULL, 0, '2024-12-04 22:26:25', '2024-12-02 14:07:48', '2024-12-04 22:26:25'),
+(1, 1, 'email_password', NULL, 'superadmin@admin.com', '$2y$12$37wyTuVspgAQLCaJpoBaU.xHZUwDvXvby5buXYa8yY8/0ENMgG.kW', NULL, NULL, 0, '2024-12-05 17:38:38', '2024-12-02 14:07:48', '2024-12-05 17:38:38'),
 (2, 2, 'email_password', NULL, 'demo@example.com', '$2y$12$uuMl0OtizdBk7eHjlmdnSuJzCuAHqjRQiS4rR/NIX1JwyavPJ.VG6', NULL, NULL, 0, '2024-12-03 09:10:40', '2024-12-02 19:44:36', '2024-12-03 09:10:40'),
 (3, 3, 'email_password', NULL, 'demo2@example.com', '$2y$12$dB3CJFokRB3Gs/iJuexJvOrpe.xm5wW5IknfHBaTOF.mkz/8nr8wm', NULL, NULL, 0, NULL, '2024-12-04 18:08:05', '2024-12-04 18:08:05'),
 (4, 4, 'email_password', NULL, 'demo24@example.com', '$2y$12$8tGsw8HxT55uSfJ1.x4Z/.v98A0fitDxwsPSjKbF.6Mbp7K5ibTzm', NULL, NULL, 0, '2024-12-04 22:19:23', '2024-12-04 22:18:28', '2024-12-04 22:19:23');
@@ -115,7 +115,8 @@ INSERT INTO `auth_logins` (`id`, `ip_address`, `user_agent`, `id_type`, `identif
 (16, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36', 'email_password', 'superadmin@admin.com', 1, '2024-12-04 21:44:34', 1),
 (17, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36', 'email_password', 'superadmin@admin.com', 1, '2024-12-23 21:47:56', 1),
 (18, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36', 'email_password', 'demo24@example.com', 4, '2024-12-04 22:19:23', 1),
-(19, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36', 'email_password', 'superadmin@admin.com', 1, '2024-12-04 22:26:25', 1);
+(19, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36', 'email_password', 'superadmin@admin.com', 1, '2024-12-04 22:26:25', 1),
+(20, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36', 'email_password', 'superadmin@admin.com', 1, '2024-12-05 17:38:38', 1);
 
 -- --------------------------------------------------------
 
@@ -393,7 +394,9 @@ INSERT INTO `members` (`id`, `uid`, `foto`, `Nik`, `first_name`, `last_name`, `e
 (13, '0ab2481c8675e8e1cec9bb2a685d53670102822a', '3327658987676750.png', 3327658987676750, 'David ', 'Wahyu Firmansyah', 'david@gmail.com', '+629877766564', 'Del Peiro 41 Street, Los Santos', '2005-04-02', 'Male', 'david-wahyu-fir_19cc9_1733125436.png', '2024-12-02 07:43:56', '2024-12-02 07:43:56', NULL),
 (14, '754b6842850656636d6f08ca26c85ee31da9e6a2', '3345894935059339.jpg', 3345894935059339, 'Aji ', 'Ngamarta Ramadhan', 'Aji@gmail.com', '+628492478274', 'Rocksford Central Apart 23 Street, Los Santos', '2008-02-02', 'Male', 'aji-ngamarta-ra_94c02_1733125669.png', '2024-12-02 07:47:49', '2024-12-02 08:57:13', NULL),
 (15, '4a80bb9599f0129b56f46ee388ad24401fe653fb', '3216081211209565.jpg', 3216081211209565, 'Puja', 'Harni P', 'demo@example.com', '8953792437124', 'Strowbery 50 Street, Losa', '2006-02-01', 'Female', 'puja-harni-p_03af0_1733192135.png', '2024-12-02 07:58:49', '2024-12-03 02:15:36', NULL),
-(21, '261a06a2aa93fba42e75fb8cd9a848ed78e2fee3', '3216081311229595.jpg', 3216081311229595, 'Clarrisa ', 'Ellen ', 'clarrisa@gmail.com', '+34204952525', 'rodeo freeway', '2024-12-04', 'Female', 'clarrisa-ellen_00084_1733324933.png', '2024-12-04 15:08:22', '2024-12-04 15:09:18', '2024-12-04 15:09:18');
+(21, '261a06a2aa93fba42e75fb8cd9a848ed78e2fee3', '3216081311229595.jpg', 3216081311229595, 'Clarrisa ', 'Ellen ', 'clarrisa@gmail.com', '+34204952525', 'rodeo freeway', '2024-12-04', 'Female', 'clarrisa-ellen_00084_1733324933.png', '2024-12-04 15:08:22', '2024-12-04 15:09:18', '2024-12-04 15:09:18'),
+(22, '77d285a6c79c930a3bd46a3748fbfa1768c317a0', '1234565678943236.jpg', 1234565678943236, 'Ajil', 'Ngamarta', 'turnitin@groupy.id', '0895437685843', 'cikarang', '2024-12-11', 'Male', 'ajil-ngamarta_26967_1733395173.png', '2024-12-05 10:39:34', '2024-12-05 10:39:45', '2024-12-05 10:39:45'),
+(23, 'cae840c35b7d03d1583e7d04b57546eadf611390', 'jangandihapus.jpg', 3216081211209585, 'ggggg', 'ggggggg', 'demo@example.com', '1234565433456', 'hvhvhvyy', '2024-12-27', 'Female', 'ggggg-ggggggg_11a45_1733395311.png', '2024-12-05 10:41:51', '2024-12-05 10:41:57', '2024-12-05 10:41:57');
 
 -- --------------------------------------------------------
 
@@ -466,9 +469,9 @@ CREATE TABLE `setting` (
   `id` int NOT NULL,
   `logo` varchar(255) NOT NULL,
   `nama` varchar(50) NOT NULL,
-  `maps` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `maps` text CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
   `alamattext` varchar(250) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dumping data untuk tabel `setting`
@@ -517,7 +520,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `status`, `status_message`, `active`, `last_active`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'superadmin', NULL, NULL, 1, '2024-12-04 23:32:05', '2024-12-02 14:07:47', '2024-12-02 14:07:48', NULL),
+(1, 'superadmin', NULL, NULL, 1, '2024-12-05 17:41:57', '2024-12-02 14:07:47', '2024-12-02 14:07:48', NULL),
 (2, 'admin', NULL, NULL, 1, '2024-12-03 09:10:41', '2024-12-02 19:44:36', '2024-12-03 09:10:15', NULL),
 (3, 'acehtime', NULL, NULL, 1, NULL, '2024-12-04 18:08:05', '2024-12-04 18:08:05', NULL),
 (4, 'Ajirtysd', NULL, NULL, 1, '2024-12-04 22:26:08', '2024-12-04 22:18:28', '2024-12-04 22:19:00', NULL);
@@ -674,7 +677,7 @@ ALTER TABLE `auth_identities`
 -- AUTO_INCREMENT untuk tabel `auth_logins`
 --
 ALTER TABLE `auth_logins`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT untuk tabel `auth_permissions_users`
@@ -734,7 +737,7 @@ ALTER TABLE `loans`
 -- AUTO_INCREMENT untuk tabel `members`
 --
 ALTER TABLE `members`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT untuk tabel `migrations`
