@@ -28,7 +28,7 @@ class CreateSettingTable extends Migration
                 'type'           => 'TEXT',
                 'null'           => false,
                 'charset'        => 'utf8mb4',
-                'collation'      => 'utf8mb4_0900_ai_ci',
+                'collation'      => 'utf8mb3_general_ci',
             ],
             'alamattext' => [
                 'type'           => 'VARCHAR',
